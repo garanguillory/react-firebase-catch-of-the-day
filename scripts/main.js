@@ -5,6 +5,10 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 import h from './helpers';
 
+// Firebase
+import Rebase from 're-base';
+var base = Rebase.createClass("https://catch-of-the-day-6e2b8.firebaseio.com");
+
 export class App extends Component {
 	constructor(props) {
 		super(props);
@@ -17,6 +21,14 @@ export class App extends Component {
 		this.loadSamples = this.loadSamples.bind(this);
 		this.renderFish = this.renderFish.bind(this);
 		this.addToOrder = this.addToOrder.bind(this);
+	}
+
+	componentDidMount(){
+		console.log("component did mount");
+		base.syncState(this.props.params.storeId + '/fishes', {
+			context: this,
+			state: 'fishes'
+		});
 	}
 
 	addToOrder(key){
@@ -249,7 +261,7 @@ export class StorePicker extends Component {
 			<form className="store-selector" onSubmit={this.goToStore}>
 				<h2>Please Enter A Store</h2>
 				<input type="text" ref="storeId" defaultValue={h.getFunName()} required/>
-				<input type="Submit" value="submit"/>
+				<input type="submit"/>
 			</form>
 		);
 	}
