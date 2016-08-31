@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 // import ReactRouter, {Router, Route, Navigation, History} from 'react-router';
 // import createBrowserHistory from 'history/lib/createBrowserHistory';
 import h from '../helpers';
 
 
 export default class Order extends Component {
+
+	static propTypes = { 
+	 	fishes: React.PropTypes.object.isRequired,
+	 	order: React.PropTypes.object.isRequired,
+	 	removeFromOrder: React.PropTypes.func.isRequired
+	};
+
 	constructor(props){
 		super(props)
 
@@ -23,7 +31,10 @@ export default class Order extends Component {
 
 		return (
 			<li key={key}>
-				<span>{count}lbs</span>
+				<CSSTransitionGroup component="span" transitionName="count"
+				transitionLeaveTimeout={250} transitionEnterTimeout={250}>
+					<span key={count}>{count}lbs</span>
+				</CSSTransitionGroup>
 				<span>{fish.name}</span>
 				<span className="price">{h.formatPrice(count * fish.price)}</span>
 				{removeButton}
@@ -48,13 +59,19 @@ export default class Order extends Component {
 		return (
 			<div className="order-wrap">
 				<h2 className="order-title">Your Order</h2>
-				<ul className="order">
+				<CSSTransitionGroup 
+				className="order" 
+				component="ul" 
+				transitionName="order" 
+				transitionEnterTimeout={500}
+				transitionLeaveTimeout={500}
+				>
 					{orderIds.map(this.renderOrder)}
 					<li className="total">
 						<strong>Total:</strong>
 						{h.formatPrice(total)}
 					</li>
-				</ul>
+				</CSSTransitionGroup>
 			</div>
 		);
 	}

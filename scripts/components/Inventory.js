@@ -6,6 +6,15 @@ import AddFishForm from './AddFishForm';
 
 
 export default class Inventory extends Component {
+
+	 static propTypes = { 
+		 	addFish: React.PropTypes.func.isRequired,
+		 	loadSamples: React.PropTypes.func.isRequired,
+		 	fishes: React.PropTypes.object.isRequired,
+		 	linkState: React.PropTypes.func.isRequired,
+		 	removeFish: React.PropTypes.func.isRequired
+	};
+
 	constructor(props){
 		super(props)
 

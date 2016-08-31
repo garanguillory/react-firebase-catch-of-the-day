@@ -3,8 +3,9 @@ import ReactRouter, {Router, Route, Navigation, History} from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import h from '../helpers';
 import reactMixin from 'react-mixin';
+// import autobind from 'autobind-decorator';
 
-
+// @autobind
 export default class StorePicker extends Component {
 
 	constructor(props){
